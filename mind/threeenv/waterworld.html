@@ -129,7 +129,7 @@
             var delta = clock.getDelta();
 
             tick();
-            if (shipMat) {
+            if (shipMat && shipMat.updateFrame) {
                 shipMat.updateFrame(delta);
             }
             renderer.render(scene, camera);
@@ -137,8 +137,8 @@
 
         var canvas, ctx;
         var agentView = false;
-        var humanControls = false; 
-        
+        var humanControls = false;
+
         // Draw everything
         function draw() {
             // ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -441,7 +441,8 @@
             grassNormal: { url: 'textures/terrain/grasslight-big-nm.jpg' },
             decalDiffuse: { url: 'textures/decal/decal-diffuse.png' },
             cloud: { url: 'textures/lava/cloud.png' },
-            spherical: { url: 'textures/envmap.png' }
+            spherical: { url: 'textures/envmap.png' },
+            shiptexture: { url: 'json/shiptexture.png' }
         };
 
         function getTexture(name) {
@@ -522,7 +523,7 @@
             mtl.clearCoat = clearCoat;
             mtl.clearCoatRoughness = clearCoatRoughness;
             mtl.environment = new THREE.CubeTextureNode(cubemap);
-            mtl.normal = new THREE.TextureNode(getTexture("grassNormal"));
+            mtl.normal = new THREE.TextureNode(getTexture("shiptexture"));
             mtl.normalScale = normalMask;
 
             // build shader
