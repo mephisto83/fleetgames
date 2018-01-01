@@ -442,7 +442,7 @@
             decalDiffuse: { url: 'textures/decal/decal-diffuse.png' },
             cloud: { url: 'textures/lava/cloud.png' },
             spherical: { url: 'textures/envmap.png' },
-            shiptexture: { url: 'json/shiptexture.png' }
+            shiptexture: { url: 'json/panel023.png' }
         };
 
         function getTexture(name) {
@@ -516,7 +516,7 @@
                 normalScale,
                 THREE.OperatorNode.MUL
             );
-            mtl.color = new THREE.ColorNode(0x373737);
+            mtl.color = new THREE.TextureNode(getTexture("shiptexture"));
             mtl.roughness = roughness;
             mtl.metalness = metalness;
             mtl.reflectivity = reflectivity;
