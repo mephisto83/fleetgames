@@ -567,8 +567,7 @@ export class StateMachine {
                 break;
             case GAMESTATES.FORFIT_SUCCESS:
                 ok = ([GAMESTATES.SELECT_METHOD_OF_CHALLENGE].indexOf(nextState) !== -1);
-                break;
-            /*            
+                break;       
         }
 
         if (ok && nextState) {
