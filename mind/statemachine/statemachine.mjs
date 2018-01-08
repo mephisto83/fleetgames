@@ -67,7 +67,81 @@ export const GAMESTATES = {
     VENDOR_STORE: 'VENDOR_STORE',
     VIEWING_INVENTORY: 'VIEWING_INVENTORY',
     VIEW_INVENTORY_FAILED: 'VIEW_INVENTORY_FAILED',
-    VIEW_INVENTORY_SUCCESS: 'VIEW_INVENTORY_SUCCESS'
+    VIEW_INVENTORY_SUCCESS: 'VIEW_INVENTORY_SUCCESS',
+
+    GO_TO_BATTLE_FIELD: 'GO_TO_BATTLE_FIELD',
+    GOING_TO_BATTLE_FIELD: 'GOING_TO_BATTLE_FIELD',
+    GO_TO_BATTLE_FIELD_FAILED: 'GO_TO_BATTLE_FIELD_FAILED',
+    GO_TO_BATTLE_FIELD_SUCCESS: 'GO_TO_BATTLE_FIELD_SUCCESS',
+    AT_BATTLE_FIELD: 'AT_BATTLE_FIELD',
+
+
+    ISSUE_CHALLENGE: 'ISSUE_CHALLENGE',
+    ISSUING_CHALLENGE: 'ISSUING_CHALLENGE',
+    ISSUING_CHALLENGE_FAILED: 'ISSUING_CHALLENGE_FAILED',
+    ISSUING_CHALLENGE_SUCCESS: 'ISSUING_CHALLENGE_SUCCESS',
+    SELECT_METHOD_OF_CHALLENGE: 'SELECT_METHOD_OF_CHALLENGE',
+    DEPLOY_CHALLENGE: 'DEPLOY_CHALLENGE',
+    DEPLOY_CHALLENGE_SUCCESS: 'DEPLOY_CHALLENGE_SUCCESS',
+    DEPLOY_CHALLENGE_FAILED: 'DEPLOY_CHALLENGE_FAILED',
+    DEPLOYING_CHALLENGE: 'DEPLOYING_CHALLENGE',
+    WAIT_FOR_CHALLENGE_DECISION: 'WAIT_FOR_CHALLENGE_DECISION',
+    WAITING_FOR_CHALLENGE_DECISION: 'WAITING_FOR_CHALLENGE_DECISION',
+    WAIT_FOR_CHALLENGE_DECISION_FAILED: 'WAIT_FOR_CHALLENGE_DECISION_FAILED',
+    WAIT_FOR_CHALLENGE_DECISION_SUCCESS: 'WAIT_FOR_CHALLENGE_DECISION_SUCCESS',
+    CHALLENGE_REPLY_RECEIVED: 'CHALLENGE_REPLY_RECEIVED',
+    CHALLENGE_REJECTED: 'CHALLENGE_REJECTED',
+    CHALLENGE_ACCEPTED: 'CHALLENGE_ACCEPTED',
+
+    PREPARE_FOR_BATTLE: 'PREPARE_FOR_BATTLE',
+    PREPARING_FOR_BATTLE: 'PREPARING_FOR_BATTLE',
+    PREPARE_FOR_BATTLE_SUCCESS: 'PREPARE_FOR_BATTLE_SUCCESS',
+    PREPARE_FOR_BATTLE_FAILED: 'PREPARE_FOR_BATTLE_FAILED',
+
+    SELECT_BATTLE_RESOURCES: 'SELECT_BATTLE_RESOURCES',
+    SELECTING_BATTLE_RESOURCES: 'SELECTING_BATTLE_RESOURCES',
+    SELECT_BATTLE_RESOURCES_FAILED: 'SELECT_BATTLE_RESOURCES_FAILED',
+    SELECT_BATTLE_RESOURCES_SUCCESS: 'SELECT_BATTLE_RESOURCES_SUCCESS',
+
+    CONFIRM_BATTLE_RESOURCES: 'CONFIRM_BATTLE_RESOURCES',
+    DEPLOY_BATTLE_RESOURCES: 'DEPLOY_BATTLE_RESOURCES',
+    DEPLOYING_BATTLE_RESOURCES: 'DEPLOYING_BATTLE_RESOURCES',
+    DEPLOY_BATTLE_RESOURCES_FAILED: 'DEPLOY_BATTLE_RESOURCES_FAILED',
+    DEPLOY_BATTLE_RESOURCES_SUCCESS: 'DEPLOY_BATTLE_RESOURCES_SUCCESS',
+
+    DECLARE_READYNESS: 'DECLARE_READYNESS',
+    DECLARING_READYNESS: 'DECLARING_READYNESS',
+    DECLARE_READYNESS_SUCCESS: 'DECLARE_READYNESS_SUCCESS',
+    DECLARE_READYNESS_FAILED: 'DECLARE_READYNESS_FAILED',
+
+    WAIT_FOR_OPPONENTS: 'WAIT_FOR_OPPONENTS',
+    WAITING_FOR_OPPONENTS: 'WAITING_FOR_OPPONENTS',
+    WAIT_FOR_OPPONENTS_FAILED: 'WAIT_FOR_OPPONENTS_FAILED',
+    WAIT_FOR_OPPONENTS_SUCCESS: 'WAIT_FOR_OPPONENTS_SUCCESS',
+
+    SET_MOVES: 'SET_MOVES',
+    SETTING_MOVES: 'SETTING_MOVES',
+    SET_MOVES_FAILED: 'SET_MOVES_FAILED',
+    SET_MOVES_SUCCESS: 'SET_MOVES_SUCCESS',
+
+    SYNCHRONIZE_MOVES_AND_RESULT: 'SYNCHRONIZE_MOVES_AND_RESULT',
+    SYNCHRONIZE_MOVES_AND_RESULT_SUCCESS: 'SYNCHRONIZE_MOVES_AND_RESULT_SUCCESS',
+    SYNCHRONIZE_MOVES_AND_RESULT_FAILED: 'SYNCHRONIZE_MOVES_AND_RESULT_FAILED',
+    SYNCHRONIZING_MOVES_AND_RESULT: 'SYNCHRONIZING_MOVES_AND_RESULT',
+
+    CHECK_GAME_OVER: 'CHECK_GAME_OVER',
+    CHECK_GAME_OVER_FAILED: 'CHECK_GAME_OVER_FAILED',
+    CHECK_GAME_OVER_SUCCESS: 'CHECK_GAME_OVER_SUCCESS',
+    CHECK_GAME_OVER_FAILED: 'CHECK_GAME_OVER_FAILED',
+
+    CHECKING_GAME_OVER: 'CHECKING_GAME_OVER',
+
+    GET_GAME_RESULT: 'GET_GAME_RESULT',
+    GETTING_GAME_RESULT: 'GETTING_GAME_RESULT',
+    GET_GAME_RESULT_FAILED: 'GET_GAME_RESULT_FAILED',
+    GET_GAME_RESULT_SUCCESS: 'GET_GAME_RESULT_SUCCESS',
+
+    SELECT_METHOD_OF_CHALLENGE: 'SELECT_METHOD_OF_CHALLENGE'
 }
 
 const vendoractions = [GAMESTATES.VENDOR_STORE, GAMESTATES.VIEW_INVENTORY, GAMESTATES.UPDATE_INVENTORY, GAMESTATES.INVENTORY_HISTORY];
@@ -166,7 +240,7 @@ export class StateMachine {
                 ok = ([GAMESTATES.READY].indexOf(nextState) !== -1);
                 break;
             case GAMESTATES.READY:
-                ok = ([GAMESTATES.CHOOSE_FARM_ACTIVITY, GAMESTATES.GO_TO_STORE].indexOf(nextState) !== -1);
+                ok = ([GAMESTATES.CHOOSE_FARM_ACTIVITY, GAMESTATES.GO_TO_STORE, GAMESTATES.GO_TO_BATTLE_FIELD].indexOf(nextState) !== -1);
                 break;
             case GAMESTATES.CHOOSE_FARM_ACTIVITY:
                 ok = ([GAMESTATES.CHOOSING_FARM_ACTIVITY, GAMESTATES.CANCEL_CHOOSE_FARM_ACTIVITY].indexOf(nextState) !== -1);
@@ -302,6 +376,186 @@ export class StateMachine {
             case GAMESTATES.INVENTORY_HISTORY_ITEM:
                 ok = ([GAMESTATES.INVENTORY_HISTORY, GAMESTATES.INVENTORY_VIEWING_HISTORY_ITEM].indexOf(nextState) !== -1);
                 break;
+            case GAMESTATES.GO_TO_BATTLE_FIELD:
+                ok = ([GAMESTATES.GOING_TO_BATTLE_FIELD].indexOf(nextState) !== -1);
+                break;
+            case GAMESTATES.GOING_TO_BATTLE_FIELD:
+                ok = ([GAMESTATES.GO_TO_BATTLE_FIELD_FAILED, GAMESTATES.GO_TO_BATTLE_FIELD_SUCCESS].indexOf(nextState) !== -1);
+                break;
+            case GAMESTATES.GO_TO_BATTLE_FIELD_FAILED:
+                ok = ([GAMESTATES.GO_TO_BATTLE_FIELD].indexOf(nextState) !== -1);
+                break;
+            case GAMESTATES.GO_TO_BATTLE_FIELD_SUCCESS:
+                ok = ([GAMESTATES.AT_BATTLE_FIELD].indexOf(nextState) !== -1);
+                break;
+            case GAMESTATES.AT_BATTLE_FIELD:
+                ok = ([GAMESTATES.ISSUE_CHALLENGE].indexOf(nextState) !== -1);
+                break;
+            case GAMESTATES.ISSUE_CHALLENGE:
+                ok = ([GAMESTATES.ISSUING_CHALLENGE].indexOf(nextState) !== -1);
+                break;
+            case GAMESTATES.ISSUING_CHALLENGE:
+                ok = ([GAMESTATES.ISSUING_CHALLENGE_SUCCESS, GAMESTATES.ISSUING_CHALLENGE_FAILED].indexOf(nextState) !== -1);
+                break;
+            case GAMESTATES.ISSUING_CHALLENGE_FAILED:
+                ok = ([GAMESTATES.ISSUING_CHALLENGE].indexOf(nextState) !== -1);
+                break;
+            case GAMESTATES.ISSUING_CHALLENGE_SUCCESS:
+                ok = ([GAMESTATES.SELECT_METHOD_OF_CHALLENGE].indexOf(nextState) !== -1);
+                break;
+            case GAMESTATES.SELECT_METHOD_OF_CHALLENGE:
+                ok = ([GAMESTATES.DEPLOY_CHALLENGE].indexOf(nextState) !== -1);
+                break;
+            case GAMESTATES.DEPLOY_CHALLENGE:
+                ok = ([GAMESTATES.DEPLOYING_CHALLENGE].indexOf(nextState) !== -1);
+                break;
+            case GAMESTATES.DEPLOYING_CHALLENGE:
+                ok = ([GAMESTATES.DEPLOY_CHALLENGE_SUCCESS, GAMESTATES.DEPLOY_CHALLENGE_FAILED].indexOf(nextState) !== -1);
+                break;
+            case GAMESTATES.DEPLOY_CHALLENGE_FAILED:
+                ok = ([GAMESTATES.DEPLOY_CHALLENGE].indexOf(nextState) !== -1);
+                break;
+            case GAMESTATES.DEPLOY_CHALLENGE_SUCCESS:
+                ok = ([GAMESTATES.WAIT_FOR_CHALLENGE_DECISION].indexOf(nextState) !== -1);
+                break;
+            case GAMESTATES.WAIT_FOR_CHALLENGE_DECISION:
+                ok = ([GAMESTATES.WAITING_FOR_CHALLENGE_DECISION].indexOf(nextState) !== -1);
+                break;
+            case GAMESTATES.WAITING_FOR_CHALLENGE_DECISION:
+                ok = ([GAMESTATES.WAIT_FOR_CHALLENGE_DECISION_FAILED, GAMESTATES.WAIT_FOR_CHALLENGE_DECISION_SUCCESS].indexOf(nextState) !== -1);
+                break;
+            case GAMESTATES.WAIT_FOR_CHALLENGE_DECISION_FAILED:
+                ok = ([GAMESTATES.WAIT_FOR_CHALLENGE_DECISION].indexOf(nextState) !== -1);
+                break;
+            case GAMESTATES.WAIT_FOR_CHALLENGE_DECISION_SUCCESS:
+                ok = ([GAMESTATES.CHALLENGE_REPLY_RECEIVED].indexOf(nextState) !== -1);
+                break;
+            case GAMESTATES.CHALLENGE_REPLY_RECEIVED:
+                ok = ([GAMESTATES.CHALLENGE_REJECTED, GAMESTATES.CHALLENGE_ACCEPTED].indexOf(nextState) !== -1);
+                break;
+            case GAMESTATES.CHALLENGE_REJECTED:
+                ok = ([GAMESTATES.SELECT_METHOD_OF_CHALLENGE].indexOf(nextState) !== -1);
+                break;
+            case GAMESTATES.CHALLENGE_ACCEPTED:
+                ok = ([GAMESTATES.PREPARE_FOR_BATTLE].indexOf(nextState) !== -1);
+                break;
+            case GAMESTATES.PREPARE_FOR_BATTLE:
+                ok = ([GAMESTATES.PREPARING_FOR_BATTLE].indexOf(nextState) !== -1);
+                break;
+            case GAMESTATES.PREPARING_FOR_BATTLE:
+                ok = ([GAMESTATES.PREPARE_FOR_BATTLE_SUCCESS, GAMESTATES.PREPARE_FOR_BATTLE_FAILED].indexOf(nextState) !== -1);
+                break;
+            case GAMESTATES.PREPARE_FOR_BATTLE_SUCCESS:
+                ok = ([GAMESTATES.SELECT_BATTLE_RESOURCES].indexOf(nextState) !== -1);
+                break;
+            case GAMESTATES.PREPARE_FOR_BATTLE_FAILED:
+                ok = ([GAMESTATES.PREPARE_FOR_BATTLE].indexOf(nextState) !== -1);
+                break;
+            case GAMESTATES.SELECT_BATTLE_RESOURCES:
+                ok = ([GAMESTATES.SELECTING_BATTLE_RESOURCES].indexOf(nextState) !== -1);
+                break;
+            case GAMESTATES.SELECTING_BATTLE_RESOURCES:
+                ok = ([GAMESTATES.SELECT_BATTLE_RESOURCES_SUCCESS, GAMESTATES.SELECT_BATTLE_RESOURCES_FAILED].indexOf(nextState) !== -1);
+                break;
+            case GAMESTATES.SELECT_BATTLE_RESOURCES_SUCCESS:
+                ok = ([GAMESTATES.CONFIRM_BATTLE_RESOURCES].indexOf(nextState) !== -1);
+                break;
+            case GAMESTATES.SELECT_BATTLE_RESOURCES_FAILED:
+                ok = ([GAMESTATES.SELECT_BATTLE_RESOURCES].indexOf(nextState) !== -1);
+                break;
+            case GAMESTATES.CONFIRM_BATTLE_RESOURCES:
+                ok = ([GAMESTATES.DEPLOY_BATTLE_RESOURCES].indexOf(nextState) !== -1);
+                break;
+            case GAMESTATES.DEPLOY_BATTLE_RESOURCES:
+                ok = ([GAMESTATES.DEPLOYING_BATTLE_RESOURCES].indexOf(nextState) !== -1);
+                break;
+            case GAMESTATES.DEPLOYING_BATTLE_RESOURCES:
+                ok = ([GAMESTATES.DEPLOY_BATTLE_RESOURCES_FAILED, GAMESTATES.DEPLOY_BATTLE_RESOURCES_SUCCESS].indexOf(nextState) !== -1);
+                break;
+            case GAMESTATES.DEPLOY_BATTLE_RESOURCES_FAILED:
+                ok = ([GAMESTATES.DEPLOY_BATTLE_RESOURCES].indexOf(nextState) !== -1);
+                break;
+            case GAMESTATES.DEPLOY_BATTLE_RESOURCES_SUCCESS:
+                ok = ([GAMESTATES.DECLARE_READYNESS].indexOf(nextState) !== -1);
+                break;
+            case GAMESTATES.DECLARE_READYNESS:
+                ok = ([GAMESTATES.DECLARING_READYNESS].indexOf(nextState) !== -1);
+                break;
+            case GAMESTATES.DECLARING_READYNESS:
+                ok = ([GAMESTATES.DECLARE_READYNESS_FAILED, GAMESTATES.DECLARE_READYNESS_SUCCESS].indexOf(nextState) !== -1);
+                break;
+            case GAMESTATES.DECLARE_READYNESS_FAILED:
+                ok = ([GAMESTATES.DECLARE_READYNESS].indexOf(nextState) !== -1);
+                break;
+            case GAMESTATES.DECLARE_READYNESS_SUCCESS:
+                ok = ([GAMESTATES.WAIT_FOR_OPPONENTS].indexOf(nextState) !== -1);
+                break;
+            case GAMESTATES.WAIT_FOR_OPPONENTS:
+                ok = ([GAMESTATES.WAITING_FOR_OPPONENTS].indexOf(nextState) !== -1);
+                break;
+            case GAMESTATES.WAITING_FOR_OPPONENTS:
+                ok = ([GAMESTATES.WAIT_FOR_OPPONENTS_SUCCESS, GAMESTATES.WAIT_FOR_OPPONENTS_FAILED].indexOf(nextState) !== -1);
+                break;
+            case GAMESTATES.WAIT_FOR_OPPONENTS_FAILED:
+                ok = ([GAMESTATES.WAIT_FOR_OPPONENTS].indexOf(nextState) !== -1);
+                break;
+            case GAMESTATES.WAIT_FOR_OPPONENTS_SUCCESS:
+                ok = ([GAMESTATES.CHECK_GAME_OVER].indexOf(nextState) !== -1);
+                break;
+            case GAMESTATES.CHECK_GAME_OVER:
+                ok = ([GAMESTATES.CHECKING_GAME_OVER].indexOf(nextState) !== -1);
+                break;
+            case GAMESTATES.CHECKING_GAME_OVER:
+                ok = ([GAMESTATES.CHECK_GAME_OVER_FAILED, GAMESTATES.CHECK_GAME_OVER_SUCCESS].indexOf(nextState) !== -1);
+                break;
+            case GAMESTATES.CHECK_GAME_OVER_FAILED:
+                ok = ([GAMESTATES.CHECK_GAME_OVER].indexOf(nextState) !== -1);
+                break;
+            case GAMESTATES.CHECK_GAME_OVER_SUCCESS:
+                ok = ([GAMESTATES.SET_MOVES, GAMESTATES.GET_GAME_RESULT].indexOf(nextState) !== -1);
+                break;
+            case GAMESTATES.SET_MOVES:
+                ok = ([GAMESTATES.SETTING_MOVES].indexOf(nextState) !== -1);
+                break;
+            case GAMESTATES.SETTING_MOVES:
+                ok = ([GAMESTATES.SET_MOVES_FAILED, GAMESTATES.SET_MOVES_SUCCESS].indexOf(nextState) !== -1);
+                break;
+            case GAMESTATES.SET_MOVES_FAILED:
+                ok = ([GAMESTATES.SET_MOVES].indexOf(nextState) !== -1);
+                break;
+            case GAMESTATES.SET_MOVES_SUCCESS:
+                ok = ([GAMESTATES.SYNCHRONIZE_MOVES_AND_RESULT].indexOf(nextState) !== -1);
+                break;
+            case GAMESTATES.SYNCHRONIZE_MOVES_AND_RESULT:
+                ok = ([GAMESTATES.SYNCHRONIZING_MOVES_AND_RESULT].indexOf(nextState) !== -1);
+                break;
+            case GAMESTATES.SYNCHRONIZING_MOVES_AND_RESULT:
+                ok = ([GAMESTATES.SYNCHRONIZE_MOVES_AND_RESULT_SUCCESS, GAMESTATES.SYNCHRONIZE_MOVES_AND_RESULT_FAILED].indexOf(nextState) !== -1);
+                break;
+            case GAMESTATES.SYNCHRONIZE_MOVES_AND_RESULT_SUCCESS:
+                ok = ([GAMESTATES.SYNCHRONIZE_MOVES_AND_RESULT_FAILED].indexOf(nextState) !== -1);
+                break;
+            case GAMESTATES.SYNCHRONIZE_MOVES_AND_RESULT_FAILED:
+                ok = ([GAMESTATES.CHECK_GAME_OVER].indexOf(nextState) !== -1);
+                break;
+            case GAMESTATES.GET_GAME_RESULT:
+                ok = ([GAMESTATES.GETTING_GAME_RESULT].indexOf(nextState) !== -1);
+                break;
+            case GAMESTATES.GETTING_GAME_RESULT:
+                ok = ([GAMESTATES.GET_GAME_RESULT_SUCCESS, GAMESTATES.GET_GAME_RESULT_FAILED].indexOf(nextState) !== -1);
+                break;
+            case GAMESTATES.GET_GAME_RESULT_FAILED:
+                ok = ([GAMESTATES.GET_GAME_RESULT].indexOf(nextState) !== -1);
+                break;
+            case GAMESTATES.GET_GAME_RESULT_SUCCESS:
+                ok = ([GAMESTATES.SELECT_METHOD_OF_CHALLENGE].indexOf(nextState) !== -1);
+                break;
+
+            /*            
+        SYNCHRONIZE_MOVES_AND_RESULT: 'SYNCHRONIZE_MOVES_AND_RESULT',
+        CHECK_GAME_OVER: 'CHECK_GAME_OVER',
+        GET_GAME_RESULT: 'GET_GAME_RESULT',
+        SELECT_METHOD_OF_CHALLENGE: 'SELECT_METHOD_OF_CHALLENGE' */
         }
 
         if (ok && nextState) {
