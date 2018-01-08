@@ -141,9 +141,15 @@ export const GAMESTATES = {
     GET_GAME_RESULT_FAILED: 'GET_GAME_RESULT_FAILED',
     GET_GAME_RESULT_SUCCESS: 'GET_GAME_RESULT_SUCCESS',
 
-    SELECT_METHOD_OF_CHALLENGE: 'SELECT_METHOD_OF_CHALLENGE'
+    SELECT_METHOD_OF_CHALLENGE: 'SELECT_METHOD_OF_CHALLENGE',
+
+    FORFIT: 'FORFIT',
+    FORFITTING: 'FORFITTING',
+    FORFIT_FAILED: 'FORFIT_FAILED',
+    FORFIT_SUCCESS: 'FORFIT_SUCCESS',
 }
 
+const gameplay = [GAMESTATES.FORFIT, GAMESTATES.AT_BATTLE_FIELD];
 const vendoractions = [GAMESTATES.VENDOR_STORE, GAMESTATES.VIEW_INVENTORY, GAMESTATES.UPDATE_INVENTORY, GAMESTATES.INVENTORY_HISTORY];
 const storeactions = [GAMESTATES.AT_THE_STORE, GAMESTATES.PURCHASE_ITEM, GAMESTATES.VIEW_ITEM, GAMESTATES.SEARCH_FOR_ITEM];
 
@@ -419,7 +425,7 @@ export class StateMachine {
                 ok = ([GAMESTATES.WAIT_FOR_CHALLENGE_DECISION].indexOf(nextState) !== -1);
                 break;
             case GAMESTATES.WAIT_FOR_CHALLENGE_DECISION:
-                ok = ([GAMESTATES.WAITING_FOR_CHALLENGE_DECISION].indexOf(nextState) !== -1);
+                ok = ([...gameplay, GAMESTATES.WAITING_FOR_CHALLENGE_DECISION].indexOf(nextState) !== -1);
                 break;
             case GAMESTATES.WAITING_FOR_CHALLENGE_DECISION:
                 ok = ([GAMESTATES.WAIT_FOR_CHALLENGE_DECISION_FAILED, GAMESTATES.WAIT_FOR_CHALLENGE_DECISION_SUCCESS].indexOf(nextState) !== -1);
@@ -431,7 +437,7 @@ export class StateMachine {
                 ok = ([GAMESTATES.CHALLENGE_REPLY_RECEIVED].indexOf(nextState) !== -1);
                 break;
             case GAMESTATES.CHALLENGE_REPLY_RECEIVED:
-                ok = ([GAMESTATES.CHALLENGE_REJECTED, GAMESTATES.CHALLENGE_ACCEPTED].indexOf(nextState) !== -1);
+                ok = ([...gameplay, GAMESTATES.CHALLENGE_REJECTED, GAMESTATES.CHALLENGE_ACCEPTED].indexOf(nextState) !== -1);
                 break;
             case GAMESTATES.CHALLENGE_REJECTED:
                 ok = ([GAMESTATES.SELECT_METHOD_OF_CHALLENGE].indexOf(nextState) !== -1);
@@ -440,7 +446,7 @@ export class StateMachine {
                 ok = ([GAMESTATES.PREPARE_FOR_BATTLE].indexOf(nextState) !== -1);
                 break;
             case GAMESTATES.PREPARE_FOR_BATTLE:
-                ok = ([GAMESTATES.PREPARING_FOR_BATTLE].indexOf(nextState) !== -1);
+                ok = ([...gameplay, GAMESTATES.PREPARING_FOR_BATTLE].indexOf(nextState) !== -1);
                 break;
             case GAMESTATES.PREPARING_FOR_BATTLE:
                 ok = ([GAMESTATES.PREPARE_FOR_BATTLE_SUCCESS, GAMESTATES.PREPARE_FOR_BATTLE_FAILED].indexOf(nextState) !== -1);
@@ -452,7 +458,7 @@ export class StateMachine {
                 ok = ([GAMESTATES.PREPARE_FOR_BATTLE].indexOf(nextState) !== -1);
                 break;
             case GAMESTATES.SELECT_BATTLE_RESOURCES:
-                ok = ([GAMESTATES.SELECTING_BATTLE_RESOURCES].indexOf(nextState) !== -1);
+                ok = ([...gameplay, GAMESTATES.SELECTING_BATTLE_RESOURCES].indexOf(nextState) !== -1);
                 break;
             case GAMESTATES.SELECTING_BATTLE_RESOURCES:
                 ok = ([GAMESTATES.SELECT_BATTLE_RESOURCES_SUCCESS, GAMESTATES.SELECT_BATTLE_RESOURCES_FAILED].indexOf(nextState) !== -1);
@@ -464,10 +470,10 @@ export class StateMachine {
                 ok = ([GAMESTATES.SELECT_BATTLE_RESOURCES].indexOf(nextState) !== -1);
                 break;
             case GAMESTATES.CONFIRM_BATTLE_RESOURCES:
-                ok = ([GAMESTATES.DEPLOY_BATTLE_RESOURCES].indexOf(nextState) !== -1);
+                ok = ([...gameplay, GAMESTATES.DEPLOY_BATTLE_RESOURCES].indexOf(nextState) !== -1);
                 break;
             case GAMESTATES.DEPLOY_BATTLE_RESOURCES:
-                ok = ([GAMESTATES.DEPLOYING_BATTLE_RESOURCES].indexOf(nextState) !== -1);
+                ok = ([...gameplay, GAMESTATES.DEPLOYING_BATTLE_RESOURCES].indexOf(nextState) !== -1);
                 break;
             case GAMESTATES.DEPLOYING_BATTLE_RESOURCES:
                 ok = ([GAMESTATES.DEPLOY_BATTLE_RESOURCES_FAILED, GAMESTATES.DEPLOY_BATTLE_RESOURCES_SUCCESS].indexOf(nextState) !== -1);
@@ -479,7 +485,7 @@ export class StateMachine {
                 ok = ([GAMESTATES.DECLARE_READYNESS].indexOf(nextState) !== -1);
                 break;
             case GAMESTATES.DECLARE_READYNESS:
-                ok = ([GAMESTATES.DECLARING_READYNESS].indexOf(nextState) !== -1);
+                ok = ([...gameplay, GAMESTATES.DECLARING_READYNESS].indexOf(nextState) !== -1);
                 break;
             case GAMESTATES.DECLARING_READYNESS:
                 ok = ([GAMESTATES.DECLARE_READYNESS_FAILED, GAMESTATES.DECLARE_READYNESS_SUCCESS].indexOf(nextState) !== -1);
@@ -491,7 +497,7 @@ export class StateMachine {
                 ok = ([GAMESTATES.WAIT_FOR_OPPONENTS].indexOf(nextState) !== -1);
                 break;
             case GAMESTATES.WAIT_FOR_OPPONENTS:
-                ok = ([GAMESTATES.WAITING_FOR_OPPONENTS].indexOf(nextState) !== -1);
+                ok = ([...gameplay, GAMESTATES.WAITING_FOR_OPPONENTS].indexOf(nextState) !== -1);
                 break;
             case GAMESTATES.WAITING_FOR_OPPONENTS:
                 ok = ([GAMESTATES.WAIT_FOR_OPPONENTS_SUCCESS, GAMESTATES.WAIT_FOR_OPPONENTS_FAILED].indexOf(nextState) !== -1);
@@ -503,7 +509,7 @@ export class StateMachine {
                 ok = ([GAMESTATES.CHECK_GAME_OVER].indexOf(nextState) !== -1);
                 break;
             case GAMESTATES.CHECK_GAME_OVER:
-                ok = ([GAMESTATES.CHECKING_GAME_OVER].indexOf(nextState) !== -1);
+                ok = ([...gameplay, GAMESTATES.CHECKING_GAME_OVER].indexOf(nextState) !== -1);
                 break;
             case GAMESTATES.CHECKING_GAME_OVER:
                 ok = ([GAMESTATES.CHECK_GAME_OVER_FAILED, GAMESTATES.CHECK_GAME_OVER_SUCCESS].indexOf(nextState) !== -1);
@@ -515,7 +521,7 @@ export class StateMachine {
                 ok = ([GAMESTATES.SET_MOVES, GAMESTATES.GET_GAME_RESULT].indexOf(nextState) !== -1);
                 break;
             case GAMESTATES.SET_MOVES:
-                ok = ([GAMESTATES.SETTING_MOVES].indexOf(nextState) !== -1);
+                ok = ([...gameplay, GAMESTATES.SETTING_MOVES].indexOf(nextState) !== -1);
                 break;
             case GAMESTATES.SETTING_MOVES:
                 ok = ([GAMESTATES.SET_MOVES_FAILED, GAMESTATES.SET_MOVES_SUCCESS].indexOf(nextState) !== -1);
@@ -527,7 +533,7 @@ export class StateMachine {
                 ok = ([GAMESTATES.SYNCHRONIZE_MOVES_AND_RESULT].indexOf(nextState) !== -1);
                 break;
             case GAMESTATES.SYNCHRONIZE_MOVES_AND_RESULT:
-                ok = ([GAMESTATES.SYNCHRONIZING_MOVES_AND_RESULT].indexOf(nextState) !== -1);
+                ok = ([...gameplay, GAMESTATES.SYNCHRONIZING_MOVES_AND_RESULT].indexOf(nextState) !== -1);
                 break;
             case GAMESTATES.SYNCHRONIZING_MOVES_AND_RESULT:
                 ok = ([GAMESTATES.SYNCHRONIZE_MOVES_AND_RESULT_SUCCESS, GAMESTATES.SYNCHRONIZE_MOVES_AND_RESULT_FAILED].indexOf(nextState) !== -1);
@@ -539,7 +545,7 @@ export class StateMachine {
                 ok = ([GAMESTATES.CHECK_GAME_OVER].indexOf(nextState) !== -1);
                 break;
             case GAMESTATES.GET_GAME_RESULT:
-                ok = ([GAMESTATES.GETTING_GAME_RESULT].indexOf(nextState) !== -1);
+                ok = ([...gameplay, GAMESTATES.GETTING_GAME_RESULT].indexOf(nextState) !== -1);
                 break;
             case GAMESTATES.GETTING_GAME_RESULT:
                 ok = ([GAMESTATES.GET_GAME_RESULT_SUCCESS, GAMESTATES.GET_GAME_RESULT_FAILED].indexOf(nextState) !== -1);
@@ -550,12 +556,19 @@ export class StateMachine {
             case GAMESTATES.GET_GAME_RESULT_SUCCESS:
                 ok = ([GAMESTATES.SELECT_METHOD_OF_CHALLENGE].indexOf(nextState) !== -1);
                 break;
-
+            case GAMESTATES.FORFIT:
+                ok = ([GAMESTATES.FORFITTING].indexOf(nextState) !== -1);
+                break;
+            case GAMESTATES.FORFITTING:
+                ok = ([GAMESTATES.FORFIT_FAILED, GAMESTATES.FORFIT_SUCCESS].indexOf(nextState) !== -1);
+                break;
+            case GAMESTATES.FORFIT_FAILED:
+                ok = ([GAMESTATES.FORFIT].indexOf(nextState) !== -1);
+                break;
+            case GAMESTATES.FORFIT_SUCCESS:
+                ok = ([GAMESTATES.SELECT_METHOD_OF_CHALLENGE].indexOf(nextState) !== -1);
+                break;
             /*            
-        SYNCHRONIZE_MOVES_AND_RESULT: 'SYNCHRONIZE_MOVES_AND_RESULT',
-        CHECK_GAME_OVER: 'CHECK_GAME_OVER',
-        GET_GAME_RESULT: 'GET_GAME_RESULT',
-        SELECT_METHOD_OF_CHALLENGE: 'SELECT_METHOD_OF_CHALLENGE' */
         }
 
         if (ok && nextState) {

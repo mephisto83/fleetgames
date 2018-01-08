@@ -550,3 +550,152 @@ stateMachine.updateState(GAMESTATES.GET_GAME_RESULT_SUCCESS);
 
 stateMachine.updateState(GAMESTATES.SELECT_METHOD_OF_CHALLENGE);
 assert(stateMachine.gameState === GAMESTATES.SELECT_METHOD_OF_CHALLENGE, `game state is not SELECT_METHOD_OF_CHALLENGE`);
+
+
+stateMachine.updateState(GAMESTATES.DEPLOY_CHALLENGE);
+assert(stateMachine.gameState === GAMESTATES.DEPLOY_CHALLENGE, `game state is not DEPLOY_CHALLENGE`);
+
+stateMachine.updateState(GAMESTATES.DEPLOYING_CHALLENGE);
+stateMachine.updateState(GAMESTATES.DEPLOY_CHALLENGE_FAILED);
+stateMachine.updateState(GAMESTATES.DEPLOY_CHALLENGE);
+stateMachine.updateState(GAMESTATES.DEPLOYING_CHALLENGE);
+stateMachine.updateState(GAMESTATES.DEPLOY_CHALLENGE_SUCCESS);
+
+stateMachine.updateState(GAMESTATES.WAIT_FOR_CHALLENGE_DECISION);
+assert(stateMachine.gameState === GAMESTATES.WAIT_FOR_CHALLENGE_DECISION, `game state is not WAIT_FOR_CHALLENGE_DECISION`);
+
+stateMachine.updateState(GAMESTATES.WAITING_FOR_CHALLENGE_DECISION);
+stateMachine.updateState(GAMESTATES.WAIT_FOR_CHALLENGE_DECISION_FAILED);
+stateMachine.updateState(GAMESTATES.WAIT_FOR_CHALLENGE_DECISION);
+stateMachine.updateState(GAMESTATES.WAITING_FOR_CHALLENGE_DECISION);
+stateMachine.updateState(GAMESTATES.WAIT_FOR_CHALLENGE_DECISION_SUCCESS);
+
+
+
+stateMachine.updateState(GAMESTATES.CHALLENGE_REPLY_RECEIVED);
+assert(stateMachine.gameState === GAMESTATES.CHALLENGE_REPLY_RECEIVED, `game state is not CHALLENGE_REPLY_RECEIVED`);
+
+stateMachine.updateState(GAMESTATES.CHALLENGE_REJECTED);
+assert(stateMachine.gameState === GAMESTATES.CHALLENGE_REJECTED, `game state is not CHALLENGE_REJECTED`);
+
+stateMachine.updateState(GAMESTATES.SELECT_METHOD_OF_CHALLENGE);
+assert(stateMachine.gameState === GAMESTATES.SELECT_METHOD_OF_CHALLENGE, `game state is not SELECT_METHOD_OF_CHALLENGE`);
+
+stateMachine.updateState(GAMESTATES.DEPLOY_CHALLENGE);
+assert(stateMachine.gameState === GAMESTATES.DEPLOY_CHALLENGE, `game state is not DEPLOY_CHALLENGE`);
+
+stateMachine.updateState(GAMESTATES.DEPLOYING_CHALLENGE);
+stateMachine.updateState(GAMESTATES.DEPLOY_CHALLENGE_FAILED);
+stateMachine.updateState(GAMESTATES.DEPLOY_CHALLENGE);
+stateMachine.updateState(GAMESTATES.DEPLOYING_CHALLENGE);
+stateMachine.updateState(GAMESTATES.DEPLOY_CHALLENGE_SUCCESS);
+
+
+stateMachine.updateState(GAMESTATES.WAIT_FOR_CHALLENGE_DECISION);
+assert(stateMachine.gameState === GAMESTATES.WAIT_FOR_CHALLENGE_DECISION, `game state is not WAIT_FOR_CHALLENGE_DECISION`);
+
+stateMachine.updateState(GAMESTATES.WAITING_FOR_CHALLENGE_DECISION);
+stateMachine.updateState(GAMESTATES.WAIT_FOR_CHALLENGE_DECISION_FAILED);
+stateMachine.updateState(GAMESTATES.WAIT_FOR_CHALLENGE_DECISION);
+stateMachine.updateState(GAMESTATES.WAITING_FOR_CHALLENGE_DECISION);
+stateMachine.updateState(GAMESTATES.WAIT_FOR_CHALLENGE_DECISION_SUCCESS);
+
+stateMachine.updateState(GAMESTATES.CHALLENGE_REPLY_RECEIVED);
+assert(stateMachine.gameState === GAMESTATES.CHALLENGE_REPLY_RECEIVED, `game state is not CHALLENGE_REPLY_RECEIVED`);
+
+stateMachine.updateState(GAMESTATES.CHALLENGE_ACCEPTED);
+assert(stateMachine.gameState === GAMESTATES.CHALLENGE_ACCEPTED, `game state is not CHALLENGE_ACCEPTED`);
+
+stateMachine.updateState(GAMESTATES.PREPARE_FOR_BATTLE);
+assert(stateMachine.gameState === GAMESTATES.PREPARE_FOR_BATTLE, `game state is not PREPARE_FOR_BATTLE`);
+
+stateMachine.updateState(GAMESTATES.PREPARING_FOR_BATTLE);
+stateMachine.updateState(GAMESTATES.PREPARE_FOR_BATTLE_FAILED);
+stateMachine.updateState(GAMESTATES.PREPARE_FOR_BATTLE);
+stateMachine.updateState(GAMESTATES.PREPARING_FOR_BATTLE);
+stateMachine.updateState(GAMESTATES.PREPARE_FOR_BATTLE_SUCCESS);
+
+stateMachine.updateState(GAMESTATES.SELECT_BATTLE_RESOURCES);
+assert(stateMachine.gameState === GAMESTATES.SELECT_BATTLE_RESOURCES, `game state is not SELECT_BATTLE_RESOURCES`);
+
+stateMachine.updateState(GAMESTATES.SELECTING_BATTLE_RESOURCES);
+stateMachine.updateState(GAMESTATES.SELECT_BATTLE_RESOURCES_FAILED);
+stateMachine.updateState(GAMESTATES.SELECT_BATTLE_RESOURCES);
+stateMachine.updateState(GAMESTATES.SELECTING_BATTLE_RESOURCES);
+stateMachine.updateState(GAMESTATES.SELECT_BATTLE_RESOURCES_SUCCESS);
+
+stateMachine.updateState(GAMESTATES.CONFIRM_BATTLE_RESOURCES);
+assert(stateMachine.gameState === GAMESTATES.CONFIRM_BATTLE_RESOURCES, `game state is not CONFIRM_BATTLE_RESOURCES`);
+
+stateMachine.updateState(GAMESTATES.DEPLOY_BATTLE_RESOURCES);
+assert(stateMachine.gameState === GAMESTATES.DEPLOY_BATTLE_RESOURCES, `game state is not DEPLOY_BATTLE_RESOURCES`);
+
+stateMachine.updateState(GAMESTATES.DEPLOYING_BATTLE_RESOURCES);
+stateMachine.updateState(GAMESTATES.DEPLOY_BATTLE_RESOURCES_FAILED);
+stateMachine.updateState(GAMESTATES.DEPLOY_BATTLE_RESOURCES);
+stateMachine.updateState(GAMESTATES.DEPLOYING_BATTLE_RESOURCES);
+stateMachine.updateState(GAMESTATES.DEPLOY_BATTLE_RESOURCES_SUCCESS);
+
+stateMachine.updateState(GAMESTATES.DECLARE_READYNESS);
+assert(stateMachine.gameState === GAMESTATES.DECLARE_READYNESS, `game state is not DECLARE_READYNESS`);
+
+stateMachine.updateState(GAMESTATES.DECLARING_READYNESS);
+stateMachine.updateState(GAMESTATES.DECLARE_READYNESS_FAILED);
+stateMachine.updateState(GAMESTATES.DECLARE_READYNESS);
+stateMachine.updateState(GAMESTATES.DECLARING_READYNESS);
+stateMachine.updateState(GAMESTATES.DECLARE_READYNESS_SUCCESS);
+
+stateMachine.updateState(GAMESTATES.WAIT_FOR_OPPONENTS);
+assert(stateMachine.gameState === GAMESTATES.WAIT_FOR_OPPONENTS, `game state is not WAIT_FOR_OPPONENTS`);
+
+stateMachine.updateState(GAMESTATES.WAITING_FOR_OPPONENTS);
+stateMachine.updateState(GAMESTATES.WAIT_FOR_OPPONENTS_FAILED);
+stateMachine.updateState(GAMESTATES.WAIT_FOR_OPPONENTS);
+stateMachine.updateState(GAMESTATES.WAITING_FOR_OPPONENTS);
+stateMachine.updateState(GAMESTATES.WAIT_FOR_OPPONENTS_SUCCESS);
+
+stateMachine.updateState(GAMESTATES.CHECK_GAME_OVER);
+assert(stateMachine.gameState === GAMESTATES.CHECK_GAME_OVER, `game state is not CHECK_GAME_OVER`);
+
+stateMachine.updateState(GAMESTATES.CHECKING_GAME_OVER);
+stateMachine.updateState(GAMESTATES.CHECK_GAME_OVER_FAILED);
+stateMachine.updateState(GAMESTATES.CHECK_GAME_OVER);
+stateMachine.updateState(GAMESTATES.CHECKING_GAME_OVER);
+stateMachine.updateState(GAMESTATES.CHECK_GAME_OVER_SUCCESS);
+
+
+stateMachine.updateState(GAMESTATES.SET_MOVES);
+assert(stateMachine.gameState === GAMESTATES.SET_MOVES, `game state is not SET_MOVES`);
+
+stateMachine.updateState(GAMESTATES.SETTING_MOVES);
+stateMachine.updateState(GAMESTATES.SET_MOVES_FAILED);
+stateMachine.updateState(GAMESTATES.SET_MOVES);
+stateMachine.updateState(GAMESTATES.SETTING_MOVES);
+stateMachine.updateState(GAMESTATES.SET_MOVES_SUCCESS);
+
+
+stateMachine.updateState(GAMESTATES.SYNCHRONIZE_MOVES_AND_RESULT);
+assert(stateMachine.gameState === GAMESTATES.SYNCHRONIZE_MOVES_AND_RESULT, `game state is not SYNCHRONIZE_MOVES_AND_RESULT`);
+
+stateMachine.updateState(GAMESTATES.SYNCHRONIZING_MOVES_AND_RESULT);
+stateMachine.updateState(GAMESTATES.SYNCHRONIZE_MOVES_AND_RESULT_FAILED);
+stateMachine.updateState(GAMESTATES.SYNCHRONIZE_MOVES_AND_RESULT);
+stateMachine.updateState(GAMESTATES.SYNCHRONIZING_MOVES_AND_RESULT);
+stateMachine.updateState(GAMESTATES.SYNCHRONIZE_MOVES_AND_RESULT_SUCCESS);
+
+
+stateMachine.updateState(GAMESTATES.CHECK_GAME_OVER);
+assert(stateMachine.gameState === GAMESTATES.CHECK_GAME_OVER, `game state is not CHECK_GAME_OVER`);
+
+stateMachine.updateState(GAMESTATES.FORFIT);
+assert(stateMachine.gameState === GAMESTATES.FORFIT, `game state is not FORFIT`);
+
+stateMachine.updateState(GAMESTATES.FORFITTING);
+stateMachine.updateState(GAMESTATES.FORFIT_FAILED);
+stateMachine.updateState(GAMESTATES.FORFIT);
+stateMachine.updateState(GAMESTATES.FORFITTING);
+stateMachine.updateState(GAMESTATES.FORFIT_SUCCESS);
+
+
+stateMachine.updateState(GAMESTATES.SELECT_METHOD_OF_CHALLENGE);
+assert(stateMachine.gameState === GAMESTATES.SELECT_METHOD_OF_CHALLENGE, `game state is not SELECT_METHOD_OF_CHALLENGE`);
