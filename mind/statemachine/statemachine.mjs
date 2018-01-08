@@ -184,7 +184,7 @@ export class StateMachine {
                 break;
         }
     }
-    updateState(nextState) {
+    canBeNextState(nextState) {
         var ok = false;
         switch (this.state) {
             case STATES.INIT:
@@ -227,19 +227,24 @@ export class StateMachine {
                 break;
         }
 
+
+        return ok;
+    }
+    updateState(nextState) {
+        var ok = this.canBeNextState(nextState);
+
         if (ok && nextState) {
             this.state = nextState;
             this.updateProfileType();
         }
-        else {
+        else if (nextState) {
             this.updateGameState(nextState);
         }
         if (this.debug)
             console.log(`currentState  : ${this.state}`);
         return this.state;
     }
-
-    updateGameState(nextState) {
+    canBeNextGameState(nextState) {
         var ok = false;
         switch (this.gameState) {
             case GAMESTATES.INIT:
@@ -567,8 +572,12 @@ export class StateMachine {
                 break;
             case GAMESTATES.FORFIT_SUCCESS:
                 ok = ([GAMESTATES.SELECT_METHOD_OF_CHALLENGE].indexOf(nextState) !== -1);
-                break;       
+                break;
         }
+        return ok;
+    }
+    updateGameState(nextState) {
+        var ok = this.canBeNextGameState(nextState);
 
         if (ok && nextState) {
             this.gameState = nextState;
