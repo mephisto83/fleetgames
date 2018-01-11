@@ -5,6 +5,10 @@ VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fleet.Resource.Service", "Fleet.Resource.Service\Fleet.Resource.Service.csproj", "{840129B2-EEDC-4811-A748-4DD802158768}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fleet.Resouce.Controller", "Fleet.Resouce.Controller\Fleet.Resouce.Controller.csproj", "{DB748F89-45D4-4CC7-8EF9-131672D12DE0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fleet.Resource.Tests", "Fleet.Resource.Tests\Fleet.Resource.Tests.csproj", "{44297BA8-4DC6-4393-BB7C-6842804082E3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{840129B2-EEDC-4811-A748-4DD802158768}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{840129B2-EEDC-4811-A748-4DD802158768}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{840129B2-EEDC-4811-A748-4DD802158768}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DB748F89-45D4-4CC7-8EF9-131672D12DE0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DB748F89-45D4-4CC7-8EF9-131672D12DE0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DB748F89-45D4-4CC7-8EF9-131672D12DE0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DB748F89-45D4-4CC7-8EF9-131672D12DE0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{44297BA8-4DC6-4393-BB7C-6842804082E3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{44297BA8-4DC6-4393-BB7C-6842804082E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{44297BA8-4DC6-4393-BB7C-6842804082E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{44297BA8-4DC6-4393-BB7C-6842804082E3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
