@@ -13,15 +13,18 @@ global.THREE = THREE;
 require('./util/OBJLoader');
 import { Lightning } from './util/Lightning';
 var { windowWidth: width, windowHeight: height } = Dimensions.get('window');
+import * as FL from './service/fleetservice';
+import fleetservice from './service/fleetservice';
 
 export default class App extends React.Component {
   state = {
     visible: false,
   }
   render() {
-
+    var error = this.state.error ? <View><Text>Something went wrong</Text></View> : null;
     return this.state.loaded ? (
       <View style={{ flex: 1 }} onLayout={this._onLayoutDidChange}>
+        {error}
         <Expo.GLView
           {...this.panResponder.panHandlers}
           ref={(ref) => this._glView = ref}
@@ -38,6 +41,13 @@ export default class App extends React.Component {
     windowHeight = layout.height;
   }
   componentWillMount() {
+    var me = this;
+    FL.mount().then(() => {
+      return fleetservice.login().then(res => {
+      }).catch(e => {
+        me.setState({ error: true })
+      });
+    });
     this.panResponder = PanResponder.create({
       onStartShouldSetPanResponder: () => true,
       onPanResponderGrant: () => {
@@ -62,9 +72,6 @@ export default class App extends React.Component {
   async preloadAssetsAsync() {
     var me = this;
     await Promise.all([
-      require('./assets/Shipwright.0007.obj'),
-      require('./assets/wooden-duck.obj'),
-      require('./assets/wooden-duck.png'),
     ].map((module) => Expo.Asset.fromModule(module).downloadAsync()))
       .then(() => {
         var cc = 0;
@@ -91,8 +98,6 @@ export default class App extends React.Component {
     // Do graphics stuff here!
     var onRenderFcts = [];
     const scene = new THREE.Scene();
-    // const camera = new THREE.PerspectiveCamera(
-    //   75, gl.drawingBufferWidth / gl.drawingBufferHeight, 0.1, 1000);
 
     const camera = ExpoTHREE.createARCamera(
       arSession,
@@ -127,49 +132,6 @@ export default class App extends React.Component {
       reflectivity: 1.0 - gamma
     });
 
-    // var physical = new THREE.MeshPhysicalMaterial({
-    //   reflectivity: 1,
-    //   clearCoat: 1,
-    //   clearCoatRoughness: 1,
-    //   color: new THREE.Color(0x123f12)
-    //   // defines: any;
-    //   // color: Color;
-    //   // roughness: number;
-    //   // metalness: number;
-    //   // map: Texture;
-    //   // lightMap: Texture;
-    //   // lightMapIntensity: number;
-    //   // aoMap: Texture;
-    //   // aoMapIntensity: number;
-    //   // emissive: Color;
-    //   // emissiveIntensity: number;
-    //   // emissiveMap: Texture;
-    //   // bumpMap: Texture;
-    //   // bumpScale: number;
-    //   // normalMap: Texture;
-    //   // normalScale: number;
-    //   // displacementMap: Texture;
-    //   // displacementScale: number;
-    //   // displacementBias: number;
-    //   // roughnessMap: Texture;
-    //   // metalnessMap: Texture;
-    //   // alphaMap: Texture;
-    //   // envMap: Texture;
-    //   // envMapIntensity: number;
-    //   // refractionRatio: number;
-    //   // wireframe: boolean;
-    //   // wireframeLinewidth: number;
-    //   // skinning: boolean;
-    //   // morphTargets: boolean;
-    //   // morphNormals: boolean;
-    // })
-    // var loader = new THREE.ObjectLoader();
-    // loader.load( 'assets/ship.json', function ( geometry, materials ) {
-    //   const ship = new THREE.Mesh(geometry, material);
-    //   scene.add(ship);
-    //   ship.position.z = -1.4;
-    // });
-
     const scaleLongestSideToSize = (mesh, size) => {
       const { x: width, y: height, z: depth } =
         new THREE.Box3().setFromObject(mesh).size();
@@ -179,82 +141,7 @@ export default class App extends React.Component {
     }
     var shipMesh;
     var shipMesh2;
-    Promise.resolve().then(() => {
 
-      const modelAsset = Asset.fromModule(require('./assets/Shipwright.0007.obj'));
-      console.log('loading model asset');
-      return modelAsset.downloadAsync().then(() => {
-        console.log('creating objloader');
-        console.log(THREE.OBJLoader);
-        console.log('type ' + (typeof (THREE.OBJLoader)));
-        const loader = new THREE.OBJLoader();
-        return Expo.FileSystem.readAsStringAsync(modelAsset.localUri).then(res => {
-          console.log('read local file');
-          const model = me.shipModel;// loader.parse(res)
-          console.log('parsed model');
-          const textureAsset = Asset.fromModule(require('./assets/wooden-duck.png'));
-          const ballTexture = new THREE.Texture();
-          ballTexture.image = {
-            data: textureAsset,
-            width: textureAsset.width,
-            height: textureAsset.height,
-          };
-          ballTexture.needsUpdate = true;
-          ballTexture.isDataTexture = true; // send to gl.texImage2D() verbatim
-          const ballMaterial = new THREE.MeshPhongMaterial({ map: ballTexture });
-          scaleLongestSideToSize(model, 1);
-          var mesh = model.clone();
-          mesh.traverse((child) => {
-            if (child instanceof THREE.Mesh) {
-              child.material = ballMaterial;
-            }
-
-          });
-          var mesh2 = model.clone();
-          mesh2.traverse((child) => {
-            if (child instanceof THREE.Mesh) {
-              child.material = ballMaterial;
-            }
-
-          });
-          mesh.position.z = -1.4;
-          mesh.position.x = -.4;
-
-          mesh2.position.z = -1.4;
-          mesh2.position.x = .4;
-          scene.add(mesh);
-          scene.add(mesh2);
-          shipMesh = mesh;
-          shipMesh2 = mesh2;
-        });
-      }).catch(e => {
-        console.log('error');
-        console.log('---')
-        console.log(e.toString());
-        console.log('---')
-      });
-      // AnyLoader(['./assets/wooden-duck.obj'], (obj) => {
-      //   scene.add(obj);
-      // })
-      // var res = async function loadPLY(key = 'ascii') {
-      //   /// This works for both `ASCII` & `Binary` `.ply` files
-      //   /// PLY files will return a geometry, we must add it to a mesh with a material.
-
-      //   const ascii =  ('./assets/ship.ply');
-      //   const models = { ascii };
-      //   const geometry = await ExpoTHREE.loadAsync(models[key], onProgress);
-
-      //   geometry.computeVertexNormals();
-      //   const material = new THREE.MeshStandardMaterial({
-      //     color: 0x0055ff,
-      //     flatShading: true,
-      //   });
-      //   const mesh = new THREE.Mesh(geometry, material);
-
-      //   return mesh;
-      // }
-      // scene.add(res);
-    })
     // const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
     const cube = new THREE.Mesh(geometry, material);
     scene.add(cube);
@@ -265,21 +152,14 @@ export default class App extends React.Component {
     var r = 1;
     var speed = 1000;
 
-    var lightning = new Lightning();
-    try {
-      const textureAsset = Asset.fromModule(require('./assets/blue_particle.jpg'));
-      lightning.init(scene, textureAsset);
-    } catch (e) {
-      console.log(e);
-    }
     var raycaster = new THREE.Raycaster();
     // var lastTimeMsec = null;
     const animate = () => {
       requestAnimationFrame(animate);
       cube.rotation.x += 0.07;
       cube.rotation.y += 0.04;
-      lightning.height = windowHeight;
-      lightning.update();
+      // lightning.height = windowHeight;
+      // lightning.update();
       if (shipMesh) {
         // shipMesh.rotation.x += 0.007;
         // shipMesh.rotation.y += 0.004;
@@ -304,12 +184,6 @@ export default class App extends React.Component {
         }
       }
       renderer.render(scene, camera);
-
-      // lastTimeMsec = lastTimeMsec || nowMsec - 1000 / 60
-      // var deltaMsec = Math.min(200, nowMsec - lastTimeMsec)
-      // onRenderFcts.forEach(function (updateFn) {
-      //   updateFn(deltaMsec / 1000, nowMsec / 1000)
-      // })
       gl.endFrameEXP();
     }
     animate();
