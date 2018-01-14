@@ -1,0 +1,17 @@
+{
+  "name": "sdk",
+  "version": "1.0.0",
+  "description": "Swirlds SDK README",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build:exampledemo" : "cd git/swirlds/sdk/source/ExampleDemo && mvn install && cd ../..",
+    "run:exampledemo" : "cd git/swirlds/sdk && java -jar swirlds.jar",
+    "exampledemo": "npm run build:exampledemo && npm run run:exampledemo"
+  },
+  "author": "",
+  "license": "ISC"
+}
