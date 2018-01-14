@@ -8,7 +8,6 @@ import com.swirlds.platform.Utilities;
 public class UserState implements FastCopyable {
 
 	String name;
-	private int resourceIds[];
 	private int money;
 	private int gas;
 	private int ore;
@@ -24,11 +23,14 @@ public class UserState implements FastCopyable {
 		return user;
 	}
 	
+	public String toString() {
+		return name+"|"+money+"|"+gas+"|"+ore+"|"+plasma;	
+	}
+	
 	@Override
 	public FastCopyable copy() {
 		// TODO Auto-generated method stub
 		UserState copy = new UserState();
-		copy.resourceIds = copy.resourceIds.clone();
 		copy.money= copy.money;
 		copy.gas = this.gas;
 		copy.ore = copy.ore;
@@ -41,7 +43,6 @@ public class UserState implements FastCopyable {
 		// TODO Auto-generated method stub
 		try {
 			name =  inStream.readUTF();
-			resourceIds = Utilities.readIntArray(inStream);
 			money = inStream.readInt();
 			gas = inStream.readInt();
 			ore = inStream.readInt();
@@ -56,11 +57,11 @@ public class UserState implements FastCopyable {
 		// TODO Auto-generated method stub
 		try {
 			outStream.writeUTF(name);
-			Utilities.writeIntArray(outStream, resourceIds);
 			outStream.writeInt(money);
 			outStream.writeInt(gas );
 			outStream.writeInt(ore );
 			outStream.writeInt(plasma );
+			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

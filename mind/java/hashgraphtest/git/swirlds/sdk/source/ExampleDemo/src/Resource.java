@@ -1,4 +1,4 @@
-import java.io.IOException;
+import java.io.IOException; 
 
 import com.swirlds.platform.FCDataInputStream;
 import com.swirlds.platform.FCDataOutputStream;
@@ -7,29 +7,40 @@ import com.swirlds.platform.Utilities;
 
 public class Resource implements FastCopyable {
 
-	private String id
-	private int value;
+	private Long id;
 	private int type;
+	private int[] values;
     private Long x;
     private Long y;
     private Long z;
+    
+    private float i;
+    private float j;
+    private float k;
+    private float w;
+    
     private int dimension;
 	
 	public static Resource Default() {
-		Resource user = new Resource();
-        
-		return user;
+		Resource resource = new Resource();
+		return resource;
 	}
 	
 	@Override
 	public FastCopyable copy() {
 		// TODO Auto-generated method stub
 		Resource copy = new Resource();
-		copy.resourceIds = copy.resourceIds.clone();
-		copy.money= copy.money;
-		copy.gas = this.gas;
-		copy.ore = copy.ore;
-		copy.plasma = copy.plasma;
+		copy.dimension = this.dimension;
+		copy.id=this.id;
+		copy.type = this.type;
+		copy.values =  this.values.clone();
+		copy.x= this.x;
+		copy.y= this.y;
+		copy.z= this.z;
+		copy.i = this.i;
+		copy.j = this.j;
+		copy.k = this.k;
+		copy.w = this.w;
 		return copy;
 	}
 
@@ -37,12 +48,17 @@ public class Resource implements FastCopyable {
 	public void copyFrom(FCDataInputStream inStream) throws IOException {
 		// TODO Auto-generated method stub
 		try {
-			name =  inStream.readUTF();
-			resourceIds = Utilities.readIntArray(inStream);
-			money = inStream.readInt();
-			gas = inStream.readInt();
-			ore = inStream.readInt();
-			plasma = inStream.readInt();
+			dimension = inStream.readInt();
+			id = inStream.readLong();
+			values = Utilities.readIntArray(inStream);
+			x = inStream.readLong();
+			y = inStream.readLong();
+			z = inStream.readLong();
+			i = inStream.readFloat();
+			j = inStream.readFloat();
+			k = inStream.readFloat();
+			w = inStream.readFloat();
+			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -51,13 +67,18 @@ public class Resource implements FastCopyable {
 	@Override
 	public void copyTo(FCDataOutputStream outStream) throws IOException {
 		// TODO Auto-generated method stub
-		try {
-			outStream.writeUTF(name);
-			Utilities.writeIntArray(outStream, resourceIds);
-			outStream.writeInt(money);
-			outStream.writeInt(gas );
-			outStream.writeInt(ore );
-			outStream.writeInt(plasma );
+		try { 
+			outStream.writeLong(dimension);
+			outStream.writeLong(id); 
+			Utilities.writeIntArray(outStream, values);
+			outStream.writeLong(x);
+			outStream.writeLong(y);
+			outStream.writeLong(z);
+			outStream.writeFloat(i);
+			outStream.writeFloat(j);
+			outStream.writeFloat(k);
+			outStream.writeFloat(w);
+		
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

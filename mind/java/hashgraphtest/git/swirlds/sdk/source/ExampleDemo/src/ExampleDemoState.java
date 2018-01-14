@@ -113,18 +113,19 @@ public class ExampleDemoState implements SwirldState {
 	@Override
 	public synchronized void handleTransaction(long id, boolean consensus,
 			Instant timeCreated, byte[] transaction, Address address) {
+				
 		String _trans = new String(transaction, StandardCharsets.UTF_8);
 		switch(_trans) {
-		case NEW_USER:
-			Long addr = address.getId();
-			UserState user = userStates.getOrDefault(address.getId(), null);
-			if(user == null) {
-				userStates.put(addr, UserState.Default());
-			}
-			break;
+			case NEW_USER:
+				long addr = id;
+				UserState user = this.userStates.getOrDefault(addr, null);
+				if(user == null) {
+					this.userStates.put(addr, UserState.Default());
+				}
+				break;
 			default:
-				strings.add(_trans);
-			break;
+					strings.add(_trans);
+				break;
 		}
 	}
 

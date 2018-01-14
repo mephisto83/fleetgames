@@ -18,6 +18,9 @@ import com.swirlds.platform.Platform;
 import com.swirlds.platform.SwirldMain;
 import com.swirlds.platform.SwirldState;
 
+
+import java.io.*;
+import java.net.*;
 /**
  * This HelloSwirld creates a single transaction, consisting of the string "Hello Swirld", and then goes
  * into a busy loop (checking once a second) to see when the state gets the transaction. When it does, it
@@ -32,7 +35,11 @@ public class ExampleDemoMain implements SwirldMain {
 	public Console console;
 	/** sleep this many milliseconds after each sync */
 	public final int sleepPeriod = 10;
+	boolean connected = false;
 
+    Socket socket;
+    PrintWriter outStream;
+    BufferedReader stdIn;
 	/**
 	 * This is just for debugging: it allows the app to run in Eclipse. If the config.txt exists and lists a
 	 * particular SwirldMain class as the one to run, then it can run in Eclipse (with the green triangle
@@ -68,7 +75,7 @@ public class ExampleDemoMain implements SwirldMain {
 		console.out.println("Hello Swirld from updated" + myName);
 		ExampleDemoState tempState = (ExampleDemoState)platform.getState();
 		UserState tempUserState = tempState.getUserState(platform.getState().getAddressBookCopy().getAddress(selfId).getId());
-
+		ExampleDemoState state;
 		// create a transaction. For this example app,
 		// we will define each transactions to simply
 		// be a string in UTF-8 encoding.
@@ -85,15 +92,71 @@ public class ExampleDemoMain implements SwirldMain {
 		}
 		
 		String lastReceived = "";
-
+		System.out.println("creating a socket");
+      
+        System.out.println("created socket");
+        System.out.println("connecting to socket");
+        String hostName = "127.0.0.1";
+        
+        try {
+			socket = new Socket(hostName, 3000);
+			System.out.println("socket created");
+			  	stdIn =
+	                new BufferedReader(
+	                    new InputStreamReader(socket.getInputStream()));
+						System.out.println("created in buffered reader");
+	        
+	            outStream =
+	                    new PrintWriter(socket.getOutputStream(), true);
+						System.out.println("created out stream");
+		} catch (UnknownHostException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		System.out.println("getting address");
+        Long addressId = platform.getState().getAddressBookCopy().getAddress(selfId).getId();
+		System.out.println(addressId );
+        UserState receivedUserState = null;
 		while (true) {
-			ExampleDemoState state = (ExampleDemoState) platform
+			state = (ExampleDemoState) platform
 					.getState();
 			String received = state.getReceived();
-			
+			if(connected)
+			{ 
+			}
+			String userInput;
+			UserState userstate = state.getUserState(addressId);
+            //while ((userInput = stdIn.readLine()) != null) {
+                // outStream.println(userInput);
+                // System.out.println("echo: " + in.readLine());
+            //}
+			if(receivedUserState == null && userstate != null)
+			{ 
+				receivedUserState = userstate;
+			//System.out.println("user state received");
+			}
+			try {
+				userInput = stdIn.readLine();
+				if(userInput != null) {
+					//System.out.println(userInput);
+					transaction = userInput.getBytes(StandardCharsets.UTF_8);
+					platform.createTransaction(transaction, null);
+				}
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			if(userstate != null) {
+				//console.out.println("Received updated: " + received); // print all received transactions
+			}
 			if (!lastReceived.equals(received)) {
 				lastReceived = received;
-				console.out.println("Received updated: " + received); // print all received transactions
+				if(userstate!=null)
+					outStream.println(userstate.toString());
+				// console.out.println("Received updated: " + received); // print all received transactions
 			}
 			try {
 				Thread.sleep(sleepPeriod);
