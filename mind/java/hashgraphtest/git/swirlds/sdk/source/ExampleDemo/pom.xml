@@ -1,0 +1,54 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <parent>
+    <groupId>SwirldsDemos</groupId>
+    <artifactId>SwirldsDemosParent</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <relativePath>../pom-parent.xml</relativePath>
+  </parent>
+
+  <properties>
+    <app.repo>${project.baseUri}../../data/repos/app/</app.repo>
+    <platform.repo>${project.baseUri}../../data/repos/platform/</platform.repo>
+    <sdk.dir>${project.basedir}/../..</sdk.dir>
+    <app.name>ExampleDemo</app.name>
+  </properties>
+
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>ExampleDemo</groupId>
+  <!-- Eclipse can't handle a variable ref here -->
+  <artifactId>ExampleDemo</artifactId>
+
+    <dependencies>
+        <dependency>
+            <groupId>io.socket</groupId>
+            <artifactId>socket.io-client</artifactId>
+        </dependency>
+        <dependency>
+        	<groupId>org.java-websocket</groupId>
+        	<artifactId>Java-WebSocket</artifactId>
+        </dependency>
+        <dependency>
+        	<groupId>org.json</groupId>
+        	<artifactId>json</artifactId>
+        </dependency>
+    </dependencies>
+    <dependencyManagement>
+    	<dependencies>
+    		<dependency>
+    			<groupId>io.socket</groupId>
+    			<artifactId>socket.io-client</artifactId>
+    			<version>1.0.0</version>
+    		</dependency>
+    		<dependency>
+    			<groupId>org.java-websocket</groupId>
+    			<artifactId>Java-WebSocket</artifactId>
+    			<version>1.3.0</version>
+    		</dependency>
+    		<dependency>
+    			<groupId>org.json</groupId>
+    			<artifactId>json</artifactId>
+    			<version>20090211</version>
+    		</dependency>
+    	</dependencies>
+    </dependencyManagement>
+</project>

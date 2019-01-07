@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Crypto-Strength: unlimited
+Created-By: 1.7.0_07 (Oracle Corporation)
+
+Name: source_tips
+SHA-256-Digest: HhxSaVuzwXk7n3tHRIY3dksFxvTILQnRPoe7LWbiEnA=
+
+Name: default_US_export.policy
+SHA-256-Digest: fIKxO39hIyJNbA/GS3aYxwNS6Hz2RJqdDZcbMpVabr0=
+

@@ -13,6 +13,7 @@ global.THREE = THREE;
 require('./util/OBJLoader');
 import { Lightning } from './util/Lightning';
 var { windowWidth: width, windowHeight: height } = Dimensions.get('window');
+
 export default class App extends React.Component {
   state = {
     visible: false,
