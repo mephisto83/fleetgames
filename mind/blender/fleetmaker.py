@@ -119,7 +119,7 @@ class ShipWright():
 			
 		blend_file_path = bpy.data.filepath
 		directory = os.path.dirname(blend_file_path)
-		jsonfiledata = { "parts" : partnames }
+		jsonfiledata = { "parts" : partnames, "count": self.partCount }
 		target_file_json = os.path.join(directory, filename + "_.json")
 		with open(target_file_json, 'w') as outfile:
 			json.dump(jsonfiledata, outfile)
