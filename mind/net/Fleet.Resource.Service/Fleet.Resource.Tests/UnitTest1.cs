@@ -13,6 +13,12 @@ namespace Fleet.Resource.Tests
     [TestClass]
     public class UnitTest1
     {
+        [TestInitialize]
+        public void Setup()
+        {
+            RedStorage.Clear().GetAwaiter().GetResult();
+        }
+
         [TestMethod]
         public async Task SetupEnvironment()
         {
@@ -46,5 +52,36 @@ namespace Fleet.Resource.Tests
             var result = await controller.ShouldMakeShip(agent.Key);
             Assert.IsTrue(result);
         }
+
+        [TestMethod]
+        public async Task GetShips()
+        {
+            var controller = new ShipController();
+            var arbiter = RedStrapper.Resolve<IRedArbiter<Ship>>();
+            var ships = await arbiter.GetAll<Ship>();
+            foreach (var s in ships)
+            {
+                await arbiter.Delete(s.Id);
+            }
+            var ship = await arbiter.Create(new Ship { });
+            ships = await controller.GetShips(new SearchParams { Start = DateTime.UtcNow.AddDays(-1), End = DateTime.UtcNow });
+            Assert.AreEqual(ships.Count, 1);
+        }
+
+        [TestMethod]
+        public async Task GetShips_onlyavailable()
+        {
+            var controller = new ShipController();
+            var arbiter = RedStrapper.Resolve<IRedArbiter<Ship>>();
+            var ships = await arbiter.GetAll<Ship>();
+            foreach (var s in ships)
+            {
+                await arbiter.Delete(s.Id);
+            }
+            var ship = await arbiter.Create(new Ship { });
+            ships = await controller.GetShips(new SearchParams { OnlyAvailableShips = true, Start = DateTime.UtcNow.AddDays(-1), End = DateTime.UtcNow });
+            Assert.AreEqual(ships.Count, 1);
+        }
+
     }
 }

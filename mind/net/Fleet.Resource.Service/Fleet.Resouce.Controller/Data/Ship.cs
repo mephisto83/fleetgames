@@ -10,8 +10,24 @@ namespace Fleet.Resouce.Controller.Data
     public class Ship : DBaseData
     {
         public string AgentId { get; set; }
+        public string MaterialResource { get; set; }
+        public Resource Material { get; set; }
+        public string ModelResource { get; set; }
+        public Resource Model { get; set; }
+        public IDictionary<string, IList<string>> Attributes { get; set; }
 
-        public IDictionary<string, string> Attributes { get; set; }
+        public static bool CanClaim(Ship ship)
+        {
+            if (ship.Owner == null)
+            { return true; }
+            return false;
+        }
+
+        public static Ship Own(Ship ship, FleetUser user)
+        {
+            ship.Owner = user.Id;
+            return ship;
+        }
     }
 
     public class ShipAttributes

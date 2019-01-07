@@ -14,7 +14,7 @@ namespace Fleet.Resource.Service.Controllers
 {
 
     [Authorize]
-    [RoutePrefix("api/ship")]
+    [RoutePrefix("api/agent")]
     public class AgentController : RedController<Agent, IRedMaestro<Agent>>
     {
 

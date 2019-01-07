@@ -51,6 +51,7 @@ import math
 import random
 import time
 import os
+import json
 from bpy.props import StringProperty, IntProperty
 
 
@@ -58,7 +59,7 @@ from bpy.props import StringProperty, IntProperty
 class ShipWright():
 
 	# Initialise the class
-	def __init__(self, context, seed, limit, percentage):
+	def __init__(self, context, seed, limit, percentage, filename):
 
 		random.seed(seed)
 		self.startTime = time.time()
@@ -109,18 +110,25 @@ class ShipWright():
 			ref.select = False
 			self.scn.objects.active = None
 		
+		partnames = []
 		for j in range(len(self.partRefs)):
 			ref = self.partRefs[j]
 			ref.select = True
-		
+			print(ref.name)
+			partnames.append(ref.name)
+			
+		blend_file_path = bpy.data.filepath
+		directory = os.path.dirname(blend_file_path)
+		jsonfiledata = { "parts" : partnames }
+		target_file_json = os.path.join(directory, filename + "_.json")
+		with open(target_file_json, 'w') as outfile:
+			json.dump(jsonfiledata, outfile)
 		
 		bpy.context.scene.layers = [True,False,False,False,False,False,False,False,False,False,False, False,False,False,False,False,False,False,False,False]
 		bpy.ops.object.select_all(action='SELECT')
 		bpy.context.scene.objects.active = self.partRefs[0]
 
-		blend_file_path = bpy.data.filepath
-		directory = os.path.dirname(blend_file_path)
-		target_file = os.path.join(directory, 'myfile1.obj')
+		target_file = os.path.join(directory, filename)
 		bpy.ops.export_scene.obj(filepath=target_file, check_existing=True, axis_forward='-Z', axis_up='Y', filter_glob="*.obj;*.mtl", use_selection=True, use_animation=False, use_mesh_modifiers=True, use_edges=True, use_smooth_groups=False, use_smooth_groups_bitflags=False, use_normals=True, use_uvs=True, use_materials=True, use_triangles=False, use_nurbs=False, use_vertex_groups=False, use_blen_objects=True, group_by_object=False, group_by_material=False, keep_vertex_order=False, global_scale=1, path_mode='AUTO')
 		return
 
@@ -254,13 +262,15 @@ class FleetMaker_init(bpy.types.Operator):
 
 	percentage = IntProperty(name="Percentile", description="Size of the auto connect", default=60)
 
+	filename = StringProperty(name="Name", description="Name of exported file.", default="myobject1")
+
 	@classmethod
 	def poll(cls, context):
 		return True
 
 	def execute(self, context):
 		bpy.context.scene.layers = [True,True,True,True,True,True,True,True,True,True,True, True,True,True,True,True,True,True,True,True]
-		ship = ShipWright(context, self.seed, self.limit, self.percentage) 
+		ship = ShipWright(context, self.seed, self.limit, self.percentage, self.filename) 
 		bpy.context.scene.layers = [True,False,False,False,False,False,False,False,False,False,False, False,False,False,False,False,False,False,False,False]
 		bpy.ops.object.select_all(action='SELECT')
 

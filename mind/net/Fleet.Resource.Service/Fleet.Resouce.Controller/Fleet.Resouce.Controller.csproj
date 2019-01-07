@@ -129,7 +129,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="RedQuick, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\RedQuick.0.0.104\lib\net461\RedQuick.dll</HintPath>
+      <HintPath>..\packages\RedQuick.0.0.106\lib\net461\RedQuick.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Swashbuckle.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=cd1bb07a5ac7c7bc, processorArchitecture=MSIL">
@@ -138,6 +138,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.IO.Compression.FileSystem" />
@@ -202,7 +203,10 @@
   <ItemGroup>
     <Compile Include="App_Start\SwaggerConfig.cs" />
     <Compile Include="Data\Agent.cs" />
+    <Compile Include="Data\ClaimRequest.cs" />
+    <Compile Include="Data\FleetLogin.cs" />
     <Compile Include="Data\FleetResource.cs" />
+    <Compile Include="Data\FleetUser.cs" />
     <Compile Include="Data\Ledger.cs" />
     <Compile Include="Data\ResourceController.cs" />
     <Compile Include="Data\Ship.cs" />
